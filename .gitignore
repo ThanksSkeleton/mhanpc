@@ -1,0 +1,5 @@
+.agents/
+.aws/
+.codex/
+.playwright-mcp/
+*Zone.Identifier

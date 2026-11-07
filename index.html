@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <table width="100%">
+    <tr>
+      <td width="35%" valign="top">
+        <form id="students"></form>
+      </td>
+      <td valign="top">
+        <img id="portrait" height="300" alt="">
+        <h1 id="hero"></h1>
+        <p>Power: <span id="power"></span></p>
+        <p>Name: <span id="real-name"></span></p>
+        <p><i id="playbook"></i></p>
+        <p><span id="worst" style="color: red"></span> ===&gt; <span id="best" style="color: blue"></span></p>
+      </td>
+    </tr>
+  </table>
+
+  <script>
+    const students = [
+      { hero: 'Phosphorea', real: 'Hannah Brooks', power: 'Sympathetic Sprouts', playbook: 'Seeker', worst: "You're deaf to the universe", best: "I'm glad to be the translator", portrait: 'Hanna_Phosphorea.PNG' },
+      { hero: 'Diving Belle', real: 'Wendy Volis', power: 'Aqua Surge + Exoskeleton', playbook: 'Protege', worst: 'You have zero discipline', best: 'I can teach them', portrait: 'Wendy_Diving_Belle.PNG' },
+      { hero: 'Sandstorm', real: 'Steve Randis', power: 'Erosion + Rocket Boots', playbook: 'Beacon', worst: "I can't afford to fight fair", best: 'I need to set an example', portrait: 'Steve_Sandstorm.PNG' },
+      { hero: 'Polarize', real: 'Thomas Wight', power: 'Magnetokenisis', playbook: 'Nova', worst: "You're ants", best: 'We cover each other', portrait: 'Thomas_Polarize.PNG' },
+      { hero: 'Spectacle', real: 'Ryan Mitchell', power: 'Instant Exposure + Wings', playbook: 'Star', worst: "I'm the only one who's real", best: 'they have depth, too', portrait: 'Ryan_Spectacle.PNG' },
+      { hero: 'Clockwork', real: 'Haruto Sato', power: 'Imp Bots', playbook: 'Brain', worst: 'Not my problem', best: 'I have a responsiblity', portrait: 'Haruto_Clockwork.PNG' },
+      { hero: 'SuperPosition', real: 'Cassie Quantum', power: 'Wave Function Collapse + Argon Beam', playbook: 'Legacy', worst: 'I should rule', best: 'The world belongs to everyone', portrait: 'Cassie_SuperPosition.png' },
+      { hero: 'Anchor', real: 'Ren Nakamura', power: 'Slowtime Distortion', playbook: 'Transformed', worst: 'Leave me alone', best: "I'm with you all", portrait: 'Ren_Anchor.PNG' },
+      { hero: 'Deja Vu', real: 'Adam Rogers', power: 'Do-Over + Precog Punch', playbook: 'Newborn', worst: "Ethics? I don't understand", best: "I'll remember you", portrait: 'Adam_Deja_Vu.PNG' },
+      { hero: 'Thorn', real: 'Alexandria Li', power: 'Jade Skin', playbook: 'Doomed', worst: 'you should feel my pain, too', best: "It's just pain - nothing more", portrait: 'Alexandria_Thorn.png' },
+      { hero: 'Ascend', real: 'Jacob Anderson', power: 'Hyper Balloon', playbook: 'Bull', worst: 'Just blow it up', best: "Careful, they're here", portrait: 'Jacob_Ascend.PNG' },
+      { hero: 'Inversion', real: 'Kato Nakamura', power: 'Wrong Way Down', playbook: 'Delinquent', worst: 'I hear your fear and I like it', best: "That's my empathy", portrait: 'Kato_Inversion.PNG' },
+      { hero: 'Turbulence', real: 'Ula Hodo', power: 'Vertigo Pillars', playbook: 'Outsider*', worst: 'Nothing to learn here', best: 'Be the best of both worlds', portrait: 'Ula_Turbulence.PNG' }
+    ];
+
+    const list = document.getElementById('students');
+
+    function show(student) {
+      const portrait = document.getElementById('portrait');
+      portrait.src = 'portraits/' + student.portrait;
+      portrait.alt = student.hero + ' portrait';
+      document.getElementById('hero').textContent = student.hero;
+      document.getElementById('power').textContent = student.power;
+      document.getElementById('real-name').textContent = student.real;
+      document.getElementById('playbook').textContent = student.playbook;
+      document.getElementById('worst').textContent = student.worst;
+      document.getElementById('best').textContent = student.best;
+    }
+
+    students.forEach((student, index) => {
+      const label = document.createElement('label');
+      const radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = 'student';
+      radio.value = String(index);
+      radio.checked = index === 0;
+      radio.addEventListener('change', () => show(student));
+
+      const name = document.createElement('b');
+      name.textContent = student.hero;
+      const playbook = document.createElement('i');
+      playbook.textContent = student.playbook;
+
+      label.append(radio, ' - ', name, ' - ', playbook);
+      list.append(label, document.createElement('br'));
+    });
+
+    show(students[0]);
+  </script>
+</body>
+</html>

@@ -10,15 +10,18 @@ BASE_URL = "https://thanksskeleton.github.io/mhanpc/"
 STUDENTS = json.loads((ROOT / "students.json").read_text())
 
 
-def page(student, url, relative_base):
+def page(student, url, relative_base, gm=False):
     title = f"{student['hero']} | MHA NPCs"
-    description = (
-        f"{student['real']} · {student['playbook']}\n"
-        f"Power: {student['power']}\n"
-        f"{student['worst']} → {student['best']}"
-    )
+    description = f"{student['real']} · {student['playbook']}\nPower: {student['power']}"
+    if gm:
+        description += f"\n{student['worst']} → {student['best']}"
     image = BASE_URL + "portraits/" + quote(student["portrait"])
     attr = lambda value: escape(value, quote=True)
+    quotes = (
+        '<p><span id="worst" style="color: red"></span> ===&gt; '
+        '<span id="best" style="color: blue"></span></p>'
+        if gm else ""
+    )
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -43,27 +46,44 @@ def page(student, url, relative_base):
         <form id="students"></form>
       </td>
       <td valign="top">
-        <img id="portrait" height="300" alt="">
+        <img id="portrait" height="600" alt="">
         <h1 id="hero"></h1>
         <p>Power: <span id="power"></span></p>
         <p>Name: <span id="real-name"></span></p>
         <p><i id="playbook"></i></p>
-        <p><span id="worst" style="color: red"></span> ===&gt; <span id="best" style="color: blue"></span></p>
+{('        ' + quotes) if quotes else ''}
       </td>
     </tr>
   </table>
 
-  <script src="students.js"></script>
+  <script src="{'gm/' if gm else ''}students.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
 '''
 
 
-(ROOT / "students.js").write_text("window.students = " + json.dumps(STUDENTS, ensure_ascii=False) + ";\n")
+(ROOT / "students.js").write_text(
+    "window.students = " + json.dumps(
+        [{key: value for key, value in student.items() if key not in ("worst", "best")}
+         for student in STUDENTS], ensure_ascii=False
+    ) + ";\n"
+)
 (ROOT / "index.html").write_text(page(STUDENTS[0], BASE_URL, "./"))
 directory = ROOT / "students"
 directory.mkdir(exist_ok=True)
 for student in STUDENTS:
     url = BASE_URL + "students/" + student["slug"] + ".html"
     (directory / (student["slug"] + ".html")).write_text(page(student, url, "../"))
+
+gm_directory = ROOT / "gm"
+gm_directory.mkdir(exist_ok=True)
+(gm_directory / "students.js").write_text(
+    "window.students = " + json.dumps(STUDENTS, ensure_ascii=False) + ";\n"
+)
+(gm_directory / "index.html").write_text(page(STUDENTS[0], BASE_URL + "gm/", "../", gm=True))
+gm_students = gm_directory / "students"
+gm_students.mkdir(exist_ok=True)
+for student in STUDENTS:
+    url = BASE_URL + "gm/students/" + student["slug"] + ".html"
+    (gm_students / (student["slug"] + ".html")).write_text(page(student, url, "../../", gm=True))

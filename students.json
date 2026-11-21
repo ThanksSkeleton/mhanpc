@@ -1,0 +1,133 @@
+[
+  {
+    "hero": "Phosphorea",
+    "real": "Hannah Brooks",
+    "power": "Sympathetic Sprouts",
+    "playbook": "Seeker",
+    "worst": "You're deaf to the universe",
+    "best": "I'm glad to be the translator",
+    "portrait": "Hanna_Phosphorea.PNG",
+    "slug": "phosphorea"
+  },
+  {
+    "hero": "Diving Belle",
+    "real": "Wendy Volis",
+    "power": "Aqua Surge + Exoskeleton",
+    "playbook": "Protege",
+    "worst": "You have zero discipline",
+    "best": "I can teach them",
+    "portrait": "Wendy_Diving_Belle.PNG",
+    "slug": "diving-belle"
+  },
+  {
+    "hero": "Sandstorm",
+    "real": "Steve Randis",
+    "power": "Erosion + Rocket Boots",
+    "playbook": "Beacon",
+    "worst": "I can't afford to fight fair",
+    "best": "I need to set an example",
+    "portrait": "Steve_Sandstorm.PNG",
+    "slug": "sandstorm"
+  },
+  {
+    "hero": "Polarize",
+    "real": "Thomas Wight",
+    "power": "Magnetokenisis",
+    "playbook": "Nova",
+    "worst": "You're ants",
+    "best": "We cover each other",
+    "portrait": "Thomas_Polarize.PNG",
+    "slug": "polarize"
+  },
+  {
+    "hero": "Spectacle",
+    "real": "Ryan Mitchell",
+    "power": "Instant Exposure + Wings",
+    "playbook": "Star",
+    "worst": "I'm the only one who's real",
+    "best": "they have depth, too",
+    "portrait": "Ryan_Spectacle.PNG",
+    "slug": "spectacle"
+  },
+  {
+    "hero": "Clockwork",
+    "real": "Haruto Sato",
+    "power": "Imp Bots",
+    "playbook": "Brain",
+    "worst": "Not my problem",
+    "best": "I have a responsiblity",
+    "portrait": "Haruto_Clockwork.PNG",
+    "slug": "clockwork"
+  },
+  {
+    "hero": "SuperPosition",
+    "real": "Cassie Quantum",
+    "power": "Wave Function Collapse + Argon Beam",
+    "playbook": "Legacy",
+    "worst": "I should rule",
+    "best": "The world belongs to everyone",
+    "portrait": "Cassie_SuperPosition.png",
+    "slug": "superposition"
+  },
+  {
+    "hero": "Anchor",
+    "real": "Ren Nakamura",
+    "power": "Slowtime Distortion",
+    "playbook": "Transformed",
+    "worst": "Leave me alone",
+    "best": "I'm with you all",
+    "portrait": "Ren_Anchor.PNG",
+    "slug": "anchor"
+  },
+  {
+    "hero": "Deja Vu",
+    "real": "Adam Rogers",
+    "power": "Do-Over + Precog Punch",
+    "playbook": "Newborn",
+    "worst": "Ethics? I don't understand",
+    "best": "I'll remember you",
+    "portrait": "Adam_Deja_Vu.PNG",
+    "slug": "deja-vu"
+  },
+  {
+    "hero": "Thorn",
+    "real": "Alexandria Li",
+    "power": "Jade Skin",
+    "playbook": "Doomed",
+    "worst": "you should feel my pain, too",
+    "best": "It's just pain - nothing more",
+    "portrait": "Alexandria_Thorn.png",
+    "slug": "thorn"
+  },
+  {
+    "hero": "Ascend",
+    "real": "Jacob Anderson",
+    "power": "Hyper Balloon",
+    "playbook": "Bull",
+    "worst": "Just blow it up",
+    "best": "Careful, they're here",
+    "portrait": "Jacob_Ascend.PNG",
+    "slug": "ascend"
+  },
+  {
+    "hero": "Inversion",
+    "real": "Kato Nakamura",
+    "power": "Wrong Way Down",
+    "playbook": "Delinquent",
+    "worst": "I hear your fear and I like it",
+    "best": "That's my empathy",
+    "portrait": "Kato_Inversion_v2.PNG",
+    "slug": "inversion"
+  },
+  {
+    "hero": "Gemma Taku",
+    "alternate": "Hidden Kick",
+    "real": "Ko'ona [No Last Name Given]",
+    "power": "Chameleon",
+    "playbook": "Outsider",
+    "worst": "Nothing to learn here",
+    "best": "Be the best of both worlds",
+    "portrait": "Ko'ona_Gemma_Taku.PNG",
+    "slug": "gemma-taku"
+  }
+]

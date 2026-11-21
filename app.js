@@ -2,10 +2,10 @@ const students = window.students;
 const list = document.getElementById('students');
 const base = document.querySelector('base').href;
 const gm = location.pathname.includes('/gm/');
-const section = gm ? 'gm/students/' : 'students/';
+const section = gm ? 'gm/students/' : 'X1/students/';
 const radios = [];
 
-function show(student) {
+function show(student, updateMetadata = true) {
   const portrait = document.getElementById('portrait');
   portrait.src = new URL('portraits/' + student.portrait, base).href;
   portrait.alt = student.hero + ' portrait';
@@ -24,15 +24,19 @@ function show(student) {
     document.getElementById('best').textContent = student.best;
   }
 
-  document.title = student.hero + ' | MHA NPCs';
-  const description = `${student.real} · ${student.playbook}\nPower: ${student.power}` +
-    (gm ? `\n${student.worst} → ${student.best}` : '');
-  document.querySelector('meta[name="description"]').content = description;
-  document.querySelector('meta[property="og:title"]').content = document.title;
-  document.querySelector('meta[property="og:description"]').content = description;
-  document.querySelector('meta[property="og:url"]').content = new URL(section + student.slug + '.html', base).href;
-  document.querySelector('meta[property="og:image"]').content = portrait.src;
-  document.querySelector('meta[property="og:image:alt"]').content = portrait.alt;
+  if (updateMetadata) {
+    document.title = student.hero + ' | MHA NPCs';
+    const description = `${student.real} · ${student.playbook}\nPower: ${student.power}` +
+      (gm ? `\n${student.worst} → ${student.best}` : '');
+    document.querySelector('meta[name="description"]').content = description;
+    document.querySelector('meta[property="og:title"]').content = document.title;
+    document.querySelector('meta[property="og:description"]').content = description;
+    document.querySelector('meta[property="og:url"]').content = new URL(section + student.slug + '.html', base).href;
+    const imageMeta = document.querySelector('meta[property="og:image"]');
+    if (imageMeta) imageMeta.content = portrait.src;
+    const imageAltMeta = document.querySelector('meta[property="og:image:alt"]');
+    if (imageAltMeta) imageAltMeta.content = portrait.alt;
+  }
   radios[students.indexOf(student)].checked = true;
 }
 
@@ -62,5 +66,10 @@ function studentFromUrl() {
   return students.find(student => student.slug === slug) || students[0];
 }
 
-window.addEventListener('popstate', () => show(studentFromUrl()));
-show(studentFromUrl());
+function isGalleryUrl() {
+  const root = new URL('.', base).pathname;
+  return location.pathname === root || location.pathname === root + 'X1/';
+}
+
+window.addEventListener('popstate', () => show(studentFromUrl(), !isGalleryUrl()));
+show(studentFromUrl(), !isGalleryUrl());

@@ -10,10 +10,13 @@ BASE_URL = "https://thanksskeleton.github.io/mhanpc/"
 STUDENTS = json.loads((ROOT / "students.json").read_text())
 
 
-def page(student, url, relative_base, gm=False):
-    title = f"{student['hero']} | MHA NPCs"
-    description = f"{student['real']} · {student['playbook']}\nPower: {student['power']}"
-    if gm:
+def page(student, url, relative_base, gm=False, gallery=False):
+    title = "Masks MHA NPC Gallery" if gallery else f"{student['hero']} | MHA NPCs"
+    description = (
+        "Browse the Masks MHA NPC Gallery."
+        if gallery else f"{student['real']} · {student['playbook']}\nPower: {student['power']}"
+    )
+    if gm and not gallery:
         description += f"\n{student['worst']} → {student['best']}"
     image = BASE_URL + "portraits/" + quote(student["portrait"])
     attr = lambda value: escape(value, quote=True)
@@ -21,6 +24,10 @@ def page(student, url, relative_base, gm=False):
         '<p><span id="worst" style="color: red"></span> ===&gt; '
         '<span id="best" style="color: blue"></span></p>'
         if gm else ""
+    )
+    image_tags = "" if gallery else (
+        f'  <meta property="og:image" content="{attr(image)}">\n'
+        f'  <meta property="og:image:alt" content="{attr(student["hero"] + " portrait")}">\n'
     )
     return f'''<!doctype html>
 <html lang="en">
@@ -34,8 +41,7 @@ def page(student, url, relative_base, gm=False):
   <meta property="og:url" content="{attr(url)}">
   <meta property="og:title" content="{attr(title)}">
   <meta property="og:description" content="{attr(description)}">
-  <meta property="og:image" content="{attr(image)}">
-  <meta property="og:image:alt" content="{attr(student['hero'] + ' portrait')}">
+{image_tags.rstrip()}
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:,">
 </head>
@@ -69,12 +75,21 @@ def page(student, url, relative_base, gm=False):
          for student in STUDENTS], ensure_ascii=False
     ) + ";\n"
 )
-(ROOT / "index.html").write_text(page(STUDENTS[0], BASE_URL, "./"))
+(ROOT / "index.html").write_text(page(STUDENTS[0], BASE_URL, "./", gallery=True))
 directory = ROOT / "students"
 directory.mkdir(exist_ok=True)
 for student in STUDENTS:
     url = BASE_URL + "students/" + student["slug"] + ".html"
     (directory / (student["slug"] + ".html")).write_text(page(student, url, "../"))
+
+spacer = ROOT / "X1"
+spacer.mkdir(exist_ok=True)
+(spacer / "index.html").write_text(page(STUDENTS[0], BASE_URL + "X1/", "../", gallery=True))
+spacer_students = spacer / "students"
+spacer_students.mkdir(exist_ok=True)
+for student in STUDENTS:
+    url = BASE_URL + "X1/students/" + student["slug"] + ".html"
+    (spacer_students / (student["slug"] + ".html")).write_text(page(student, url, "../../"))
 
 gm_directory = ROOT / "gm"
 gm_directory.mkdir(exist_ok=True)
